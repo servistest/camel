@@ -18,9 +18,6 @@ public class TransferFileWithCamel {
         CamelContext camelContext=new DefaultCamelContext();
         camelContext.addRoutes(new TransferFilesWithCamel());
         camelContext.addRoutes(new LogMessageOnTimer());
-
-
-
         camelContext.start();
         Thread.sleep(5000);
         camelContext.stop();
