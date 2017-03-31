@@ -68,3 +68,4 @@ src/test/
 /src/
 /CamelTest.iml
 /chapter2/target/
+/**/*.iml
