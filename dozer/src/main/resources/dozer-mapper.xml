@@ -10,6 +10,7 @@
         <wildcard>true</wildcard>
     </configuration>
 
+
     <mapping type="one-way">
         <class-a>com.dozer.User</class-a>
         <class-b>com.dozer.TargetUser</class-b>
