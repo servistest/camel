@@ -34,6 +34,7 @@ hs_err_pid*
 .idea/**/sqlDataSources.xml
 .idea/**/dynamic.xml
 .idea/**/uiDesigner.xml
+.idea/**/*.iml
 
 # Gradle:
 .idea/**/gradle.xml
@@ -66,3 +67,4 @@ src/test/
 /orderout/
 /src/
 /CamelTest.iml
+/chapter2/target/
