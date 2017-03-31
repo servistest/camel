@@ -4,16 +4,27 @@
           xsi:schemaLocation="http://dozer.sourceforge.net
  http://dozer.sourceforge.net/schema/beanmapping.xsd">
 
-    <mapping>
+    <configuration>
+        <stop-on-errors>true</stop-on-errors>
+        <date-format>MM/dd/yyyy HH:mm</date-format>
+        <wildcard>true</wildcard>
+    </configuration>
+
+
+    <mapping type="one-way">
         <class-a>com.dozer.User</class-a>
         <class-b>com.dozer.TargetUser</class-b>
             <field>
                 <a>firstName</a>
                 <b>myFirstName</b>
             </field>
-        <field>
+        <field-exclude>
             <a>lastName</a>
             <b>myLastName</b>
+        </field-exclude>
+        <field>
+            <a>dob</a>
+            <b is-accessible="true">myDob</b>
         </field>
 
     </mapping>

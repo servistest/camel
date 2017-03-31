@@ -9,6 +9,8 @@ public class TargetUser {
 
     private String myFirstName;
     private String myLastName;
+    private String myDob;
+
 
     public String getMyFirstName() {
         return myFirstName;
@@ -17,6 +19,10 @@ public class TargetUser {
     public void setMyFirstName(String myFirstName) {
         this.myFirstName = myFirstName;
     }
+
+//    public void setMyDob(String myDob) {
+//        this.myDob = myDob;
+//    }
 
     public String getMyLastName() {
         return myLastName;
@@ -31,6 +37,7 @@ public class TargetUser {
         return "TargetUser{" +
                 "myFirstName='" + myFirstName + '\'' +
                 ", myLastName='" + myLastName + '\'' +
+                ", myDob='" + myDob + '\'' +
                 '}';
     }
 }

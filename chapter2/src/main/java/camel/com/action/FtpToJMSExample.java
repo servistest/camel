@@ -24,5 +24,6 @@ public class FtpToJMSExample {
         camelContext.start();
         Thread.sleep(5000);
         camelContext.stop();
+
     }
 }

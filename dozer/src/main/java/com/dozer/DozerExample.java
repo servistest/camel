@@ -25,7 +25,7 @@ public class DozerExample {
         DozerBeanMapper mapper =new DozerBeanMapper();
         mapper.setMappingFiles(mappingFilesList);
 
-        User user=new User("Alexander","Smirnov",new Date());
+        User user=new User(null,"Smirnov",new Date());
         TargetUser targetUser=mapper.map(user,TargetUser.class);
 
         log.info("source user = {} ", user);

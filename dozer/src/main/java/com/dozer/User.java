@@ -37,9 +37,6 @@ public class User {
         return dob;
     }
 
-    public void setDob(Date dob) {
-        this.dob = dob;
-    }
 
     @Override
     public String toString() {
