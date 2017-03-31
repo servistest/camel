@@ -56,8 +56,13 @@ hs_err_pid*
 # JIRA plugin
 atlassian-ide-plugin.xml
 
-chapter2/src/test/
-dozer/src/test/
+
 dozer/target/generated-sources/
 src/main/java/
 src/test/
+/dozer/target/
+/activemq-data/
+/.idea/
+/orderout/
+/src/
+/CamelTest.iml

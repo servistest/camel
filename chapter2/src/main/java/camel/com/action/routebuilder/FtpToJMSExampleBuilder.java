@@ -34,8 +34,8 @@ public class FtpToJMSExampleBuilder extends RouteBuilder {
 
         XmlJsonDataFormat xmlJsonFormat = new XmlJsonDataFormat();
         from("direct:marshal")
-                .marshal()
-                .xmljson()
+//                .marshal()
+//                .xmljson()
 //                .marshal().json(JsonLibrary.Jackson)
 //                .marshal(xmlJsonFormat)
 //                .process(new Processor() {
