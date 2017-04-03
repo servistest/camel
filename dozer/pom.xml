@@ -11,6 +11,7 @@
 
     <artifactId>dozer</artifactId>
     <dependencies>
+
         <dependency>
             <groupId>net.sf.dozer</groupId>
             <artifactId>dozer</artifactId>
