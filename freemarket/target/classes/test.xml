@@ -1,0 +1,38 @@
+<soapenv:Envelope
+        xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+        xmlns:ser="http://atp.ihg.com/schema/crs/reservations/offer/servicetypes"
+        xmlns:v1="http://atp.ihg.com/schema/common/ATPCommonServiceTypes/v1"
+        xmlns:v3="http://atp.ihg.com/schema/crs/reservations/availability/datatypes/common/v3"
+        xmlns:dat="http://atp.ihg.com/schema/crs/reservations/offer/datatypes">
+    <soapenv:Body>
+        <updateRatePropertyResponse
+                xmlns="http://atp.ihg.com/schema/crs/reservations/offer/servicetypes">
+            <v1:header>
+                <v1:language isoCountryCode="US" isoLanguageCode="en"/>
+                <v1:channel name="DT">
+                    <v1:subChannel name="">
+                        <v1:subChannel name="">
+                            <v1:subChannel name=""/></v1:subChannel>
+                    </v1:subChannel>
+                </v1:channel>
+                <v1:headerVersion major="1" minor="1" build="0"/>
+                <v1:environment name=""/>
+                <v1:transactionId id=""/>
+                <v1:transactionSequence number="0"/>
+                <v1:transactionLogging level="INFO"/>
+                <transactionStatus
+                        xmlns="http://atp.ihg.com/schema/common/ATPCommonServiceTypes/v1"
+                        transactionSuccessful="false"
+                        overallStatusArea="AVAILABILITY.ESB"
+                        overallStatusCode="10010"
+                        overallStatusDescription="Operation UnSuccessful">
+                    <errors>
+                        <status statusArea="1"
+                                statusCode="112180"
+                                statusDescription="Start Sell Date in ABR must be = Stay Period Start Date"/>
+                    </errors>
+                </transactionStatus>
+            </v1:header>
+        </updateRatePropertyResponse>
+    </soapenv:Body>
+</soapenv:Envelope>

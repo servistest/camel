@@ -1,0 +1,126 @@
+<#-- macros and functions block -->
+<#function getHdxOperationName availOperationName>
+<#if availOperationName = "getSinglePropertyAvailRequest">
+<#return "PropAvlRQ" />
+        </#if>
+<#if availOperationName = "getRateRulesRequest" >
+<#return "RuleAvlRQ" />
+        </#if>
+<#if availOperationName = "getGroupAvailRequest">
+<#return "GrpAvlRQ" />
+        </#if>
+        </#function>
+<#function getMTQ includePublicRates>
+<#if includePublicRates = "Never">
+<#return 'E' />
+<#elseif includePublicRates = "IfNoAvai">
+<#return 'A' />
+<#else>
+<#return 'P' />
+        </#if>
+        </#function>
+<#assign hdxOpName = getHdxOperationName(headers['operationName']) />
+<#compress>
+<Envelope>
+<Hdr>
+    <OrigSys>EBS</OrigSys>
+    <OrigChan>${(body.header.channelId)!}</OrigChan>
+    <OrigApp>${(body.header.requestorId)!}</OrigApp>
+    <OrigTime>${.now?iso_utc}</OrigTime>
+    <DestChan>HDX</DestChan>
+    <DestApp>HDX</DestApp>
+    <Action>${hdxOpName}</Action>
+    <MsgVer>1.0</MsgVer>
+    <MsgID>${(body.header.transactionId)!}</MsgID>
+    <MsgMode>Sync</MsgMode>
+    <Env>${(body.header.hdxEnv)!}</Env>
+    <PayloadTy>XML</PayloadTy>
+</Hdr>
+<Payload>
+    <${hdxOpName}>
+    <POS>
+        <Src RqstrID="${(body.header.requestorId)!}"
+        <#if (body.posParam.agentSine)??>AgtSine="${body.posParam.agentSine}"</#if>
+    <#if headers['fake_header']??>AgtInit=""</#if>
+<#if headers['fake_header']??>AgtDtCd="PR"</#if>
+<#if headers['fake_header']??>PsdoCty=""</#if>
+<#if headers['fake_header']??>Date=""</#if>
+<#if (body.posParam.agencyDetails.subUserId)??>SubUsrID="${body.posParam.agencyDetails.subUserId}"</#if>>
+<#if (body.posParam.agencyDetails.iataNumber)??>
+<Req ReqID="${body.posParam.agencyDetails.iataNumber}" />
+        </#if>
+        </Src>
+        </POS>
+<#if headers['operationName'] = "getSinglePropertyAvailRequest" || headers['operationName'] = "getRateRulesRequest">
+<Htl HtlCd="${body.propertyCodes[0]}" <#if body.chainCode??>ChnCd="${body.chainCode}"</#if>/>
+<#else >
+<Htls>
+<#list headers['current_hotel_codes'] as propertyCode >
+<Htl HtlCd="${propertyCode}"/>
+</#list>
+        </Htls>
+        </#if>
+<#if (body.ratePlan.hdxRatePlanCodes)?? || (body.groupCode)??>
+<RtCats>
+<#if (body.ratePlan.hdxRatePlanCodes)??>
+<#list body.ratePlan.hdxRatePlanCodes as ratePlan>
+<RtCat Cd="${ratePlan}"/>
+</#list>
+        </#if>
+<#if (body.groupCode)??>
+<RtCat Cd="${body.groupCode}" Ty="G"/>
+        </#if>
+        </RtCats>
+        </#if>
+<#if (body.corporateNumber.hdxCdNumbers)??>
+<CorpIDs>
+<#list body.corporateNumber.hdxCdNumbers as corpNum>
+<CorpID CorpNum="${corpNum}"/>
+</#list>
+        </CorpIDs>
+        </#if>
+<Stay Start="${body.startDate}"
+      End="${body.endDate}"
+      Adult="${(body.guestParam.numberOfAdults)!1}"
+<#if (body.guestParam.numberOfChildren)??>Child="${body.guestParam.numberOfChildren}"</#if>
+        RmCnt="${body.roomNumber!1}"
+<#if body.loyaltyId??>PclubNbr="${body.loyaltyId}"</#if>
+<#if body.currency??>CurCd="${body.currency}"</#if>
+<#if headers['operationName'] = "getRateRulesRequest">
+        RmCd="${body.roomType.roomCode}"
+        </#if>
+        />
+<#if headers['operationName'] != "getRateRulesRequest" >
+<Qlfrs
+<#if headers['operationName'] = "getSinglePropertyAvailRequest">
+        RRules="Y"
+<#if body.rateLongDesc??> LgRtDesc="${body.rateLongDesc?string("Y", "N")}"</#if>
+<#if body.roomLongDesc??> LgRmDesc="${body.roomLongDesc?string("Y", "N")}"</#if>
+        </#if>
+<#if body.addSs??> SellStrCd="${body.addSs?string('H', 'N')}"</#if>
+<#--<#if headers['fake_header']??>AltRts="Y"</#if>-->
+<#if (body.roomType.getHdxAdaInd())??> Ada="${body.roomType.getHdxAdaInd()}"</#if>
+<#if (body.roomType.getHdxSmkInd())??> OPN="${body.roomType.getHdxSmkInd()}"</#if>
+<#if body.budgetMin??> MinRt="${body.budgetMin?replace(".", "")}"</#if>
+<#if body.budgetMax??> MaxRt="${body.budgetMax?replace(".", "")}"</#if>
+        />
+        </#if>
+<PclubData IncPclubPtsCost="N"
+<#if body.programName??>AmbLevelCd="${body.programName}"</#if>>
+        </PclubData>
+<#if (body.ratePlan.amenityCodes)?has_content>
+<AmenityCDs>
+<#list body.ratePlan.amenityCodes as amenityCode>
+<AmenityCD AmenityCode="${amenityCode}"/>
+</#list>
+        </AmenityCDs>
+        </#if>
+<#if headers['operationName'] = "getGroupAvailRequest" >
+<#if body.inclPublicRates?? >
+<MTQ>${getMTQ(body.inclPublicRates)}</MTQ>
+        </#if>
+        </#if>
+        </${hdxOpName}>
+        </Payload>
+        </Envelope>
+        </#compress>
