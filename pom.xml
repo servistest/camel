@@ -11,6 +11,10 @@
     <modules>
         <module>chapter2</module>
         <module>dozer</module>
+        <module>soap</module>
+        <module>freemarket</module>
+        <module>ClientSoap</module>
+        <module>soapservice</module>
     </modules>
     <properties>
         <activemq-version>5.11.1</activemq-version>
