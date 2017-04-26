@@ -11,6 +11,7 @@ import org.apache.camel.model.dataformat.XmlJsonDataFormat;
  */
 public class FtpToJMSExampleBuilder extends RouteBuilder {
     public void configure() throws Exception {
+
         from("ftp://localhost/order?username=alex&password=jabutnm")
                 .choice()
                     .when(header("CamelFileName").endsWith(".txt"))

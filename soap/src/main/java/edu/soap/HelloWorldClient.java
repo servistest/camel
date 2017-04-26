@@ -19,7 +19,7 @@ public class HelloWorldClient {
 //
 //        System.out.println(helloWorld.getHelloWorldAsString("Alex"));
         URL url = new URL("http://localhost:9999/ws/hello?wsdl");
-        QName qname = new QName("http://ws.mkyong.com/", "HelloWorldImplService");
+        QName qname = new QName("http://soap.edu/", "HelloWorldImplService");
 
         Service service = Service.create(url, qname);
 

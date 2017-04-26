@@ -6,8 +6,7 @@ import javax.jws.WebService;
 /**
  * Created by ALex on 23.04.2017.
  */
-@WebService
-//        (endpointInterface = "edu.soap.HelloWorld")
+@WebService (endpointInterface = "edu.soap.HelloWorld")
 public class HelloWorldImpl implements HelloWorld{
 
 
