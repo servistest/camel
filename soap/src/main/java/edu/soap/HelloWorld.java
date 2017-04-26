@@ -11,5 +11,8 @@ import javax.jws.soap.SOAPBinding;
 public interface HelloWorld {
 
     @WebMethod
-    public String getHelloWorldAsString(String name);
+    public String getHelloWorldAsString(String name, Integer count);
+
+    @WebMethod
+    public Integer getSumAsInteger(Integer a,Integer b);
 }
